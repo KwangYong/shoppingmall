@@ -1,13 +1,12 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var index = require('./routes/index');
+const index = require('./routes/index');
 
-var app = express();
+const app = express();
 
 // view engine setup
 // uncomment after placing your favicon in /public
