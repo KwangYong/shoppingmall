@@ -1,16 +1,8 @@
 "use strict";
 
-const gender = [
-  'MALE',
-  'FEMALE'
-]
-
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define("user", {
-    username: {type: DataTypes.STRING},
-    mdn: {type: DataTypes.STRING},
-    gender: {type: DataTypes.ENUM(gender)},
-
+  const size = sequelize.define("size", {
+    name: {type: DataTypes.STRING(10), allowNull: false},
   }, {
     paranoid: true,
     underscored: true,
@@ -18,10 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     version: true,
     classMethods: {
       associate: function(models) {
-        
+
       }
     }
   });
 
-  return user;
+  return size;
 };
