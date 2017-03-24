@@ -1,15 +1,7 @@
 "use strict";
 
-const gender = [
-  'MALE',
-  'FEMALE'
-]
-
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define("user", {
-    username: {type: DataTypes.STRING},
-    mdn: {type: DataTypes.STRING},
-    gender: {type: DataTypes.ENUM(gender)},
+  const sale = sequelize.define("sale", {
 
   }, {
     paranoid: true,
@@ -18,10 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     version: true,
     classMethods: {
       associate: function(models) {
-        
+        models.saleGroup.hasMany(sale,  { foreignKey: { allowNull: false }, onDelete: 'NO ACTION' });
+
       }
     }
   });
 
-  return user;
+  return sale;
 };
