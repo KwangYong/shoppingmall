@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const product = sequelize.define("product", {
+  const Product = sequelize.define("product", {
     name: {type: DataTypes.STRING(50), allowNull: false},
     description: { type: DataTypes.TEXT, allowNull: false},
     regularPrice: { type: DataTypes.BIGINT, field: 'regular_price', allowNull: false },
@@ -13,13 +13,18 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true,
     version: true,
     classMethods: {
-      associate: function(models) {
-        models.productCategory.hasMany(product, { allowNull: false });
-
+      associate: (models) => {
+        Product.hasMany(models.productSkuColorSize);
+        Product.belongsTo(models.productCategory, {
+          onDelete: "NO ACTION",
+          foreignKey: {
+            allowNull: false
+          }
+        });
 
       }
     }
   });
 
-  return product;
+  return Product;
 };

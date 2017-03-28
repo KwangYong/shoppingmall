@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const size = sequelize.define("size", {
+  const Size = sequelize.define("size", {
     name: {type: DataTypes.STRING(10), allowNull: false},
   }, {
     paranoid: true,
@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true,
     version: true,
     classMethods: {
-      associate: function(models) {
-
+      associate: (models) => {
+        Size.hasMany(models.productSkuColorSize);
       }
     }
   });
 
-  return size;
+  return Size;
 };

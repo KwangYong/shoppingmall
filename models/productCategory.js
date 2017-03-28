@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const productCategory = sequelize.define("productCategory", {
+  const ProductCategory = sequelize.define("productCategory", {
     name: {type: DataTypes.STRING(50), allowNull: false },
 
   }, {
@@ -10,13 +10,14 @@ module.exports = (sequelize, DataTypes) => {
     version: true,
     tableName: 'product_category',
     classMethods: {
-      associate: function(models) {
-        productCategory.hasMany(productCategory, { foreignKey: 'parent_id', useJunctionTable: false })
-
+      associate: (models) => {
+        ProductCategory.hasMany(ProductCategory);
+        ProductCategory.belongsTo(models.productCategory, { useJunctionTable: false })
+        ProductCategory.hasMany(models.product);
 
       }
     }
   });
 
-  return productCategory;
+  return ProductCategory;
 };
