@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const productSkuColorSize = sequelize.define("productSkuColorSize", {
+  const ProductSkuColorSize = sequelize.define("productSkuColorSize", {
     name: {type: DataTypes.STRING(50), allowNull: false },
   }, {
     paranoid: true,
@@ -9,12 +9,32 @@ module.exports = (sequelize, DataTypes) => {
     version: true,
     tableName: 'product_sku_color_size',
     classMethods: {
-      associate: function(models) {
-        models.product.hasMany(productSkuColorSize,  { foreignKey: { allowNull: false }, onDelete: 'NO ACTION' });
-        models.color.hasMany(productSkuColorSize, { foreignKey: { allowNull: false }, onDelete: 'NO ACTION' });
-        models.size.hasMany(productSkuColorSize, { foreignKey: { allowNull: false }, onDelete: 'NO ACTION' });
+      associate: (models) => {
+        ProductSkuColorSize.hasMany(models.shoppingCart);
+        ProductSkuColorSize.hasMany(models.sale);
+
+        ProductSkuColorSize.belongsTo(models.product, {
+          onDelete: "NO ACTION",
+          foreignKey: {
+            allowNull: false
+          }
+        });
+
+        ProductSkuColorSize.belongsTo(models.size, {
+          onDelete: "NO ACTION",
+          foreignKey: {
+            allowNull: false
+          }
+        });
+
+        ProductSkuColorSize.belongsTo(models.color, {
+          onDelete: "NO ACTION",
+          foreignKey: {
+            allowNull: false
+          }
+        });
       }
     }
   });
-  return productSkuColorSize;
+  return ProductSkuColorSize;
 };

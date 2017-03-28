@@ -1,9 +1,9 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const saleGroup = sequelize.define("saleGroup", {
-
-
+  const SaleGroup = sequelize.define("saleGroup", {
+    userComment: {type: DataTypes.STRING, field: 'user_comment'},
+    adminComment: {type: DataTypes.STRING, field: 'admin_comment'},
   }, {
     paranoid: true,
     underscored: true,
@@ -11,11 +11,17 @@ module.exports = (sequelize, DataTypes) => {
     version: true,
     tableName: 'sale_group',
     classMethods: {
-      associate: function(models) {
-        models.user.hasMany(saleGroup,  { foreignKey: { allowNull: false }, onDelete: 'NO ACTION' });
+      associate: (models) => {
+        SaleGroup.hasMany(models.sale);
+        SaleGroup.belongsTo(models.user, {
+          onDelete: "NO ACTION",
+          foreignKey: {
+            allowNull: false
+          }
+        });
       }
     }
   });
 
-  return saleGroup;
+  return SaleGroup;
 };
