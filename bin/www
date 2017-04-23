@@ -7,7 +7,7 @@
 const app = require('../app');
 const debug = require('debug')('shoppingmall-api-server:server');
 const http = require('http');
-const models = require('../models');
+const models = require('shoppingmall-db-model');
 /**
  * Get port from environment and store in Express.
  */
